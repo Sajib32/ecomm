@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('layouts.main');
-});
+
 
 Route::controller('admin/categories', 'CategoriesController');
-  
+Route::controller('admin/products','ProductsController');
