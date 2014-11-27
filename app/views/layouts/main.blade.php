@@ -52,10 +52,10 @@
                     </nav>
 
                     <div id="search-form">
-                        <form action="#" method="get">
-                            <input type="search" name="search" placeholder="Search by keyword" class="search">
-                            <input type="submit" value="Search" class="search submit">
-                        </form>
+                        {{ Form::open(array('url'=>'store/search', 'method'=>'get')) }}
+                        {{ Form::text('keyword', null, array('placehoder'=>'Search by keyword', 'class'=>'search')) }}
+                        {{ Form::submit('Search', array('class'=>'search submit')) }}
+                        {{ Form::close() }}
                     </div><!-- end search-form -->
 
                     <div id="user-menu">
@@ -93,6 +93,8 @@
             </header>
 
             @yield('promo')
+
+            @yield('search-keyword')
 
             <hr />
 
