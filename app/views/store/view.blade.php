@@ -21,7 +21,7 @@
 	    </form>
 	</div><!-- end product-details -->
 	<div id="product-info">
-	    <p class="price">{{ $product->price }}</p>
+	    <p class="price">${{ $product->price }}</p>
 	    <p>Availability:
 	                     <span class="{{ Availability::displayClass($product->availability) }}">
 	                     	{{ Availability::display($product->availability) }}
