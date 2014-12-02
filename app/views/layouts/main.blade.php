@@ -12,13 +12,13 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!--
-        	<link rel="stylesheet" href="css/normalize.css"> 
+            <link rel="stylesheet" href="css/normalize.css"> 
             <link rel="stylesheet" href="css/main.css">
-        	<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+            <script src="js/vendor/modernizr-2.6.2.min.js"></script>
         -->
-        	{{ HTML::style('css/normalize.css') }}
-        	{{ HTML::style('css/main.css') }}
-        	{{ HTML::script('js/vendor/modernizr-2.6.2.min.js') }}
+            {{ HTML::style('css/normalize.css') }}
+            {{ HTML::style('css/main.css') }}
+            {{ HTML::script('js/vendor/modernizr-2.6.2.min.js') }}
 
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -59,31 +59,35 @@
                     </div><!-- end search-form -->
 
                     <div id="user-menu">
-                        
-                        <nav id="signin" class="dropdown">
-                            <ul>
-                                <li>
-                                    <a href="#">{{ HTML::image('img/user-icon.gif', 'Sign In') }} Sign In {{ HTML::image('img/down-arrow.gif', 'Sign In') }} </a>
-                                    <ul>
-                                        <li><a href="#">Sign In</a></li>
-                                        <li><a href="#">Sign Up</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
 
-                        <!--
-                        <nav class="dropdown">
-                            <ul>
-                                <li>
-                                    <a href="#">{{ HTML::image('img/user-icon.gif', 'Andrew Perkins') }} Andrew Perkins {{ HTML::image('/img/down-arrow.gif', 'Andrew Perkins') }} </a>
-                                    <ul>
-                                        <li><a href="#">Order History</a></li>
-                                        <li><a href="#">Sign Out</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>-->
+                        @if(Auth::check())
+                            <nav class="dropdown">
+                                <ul>
+                                    <li>
+                                        <a href="#">{{ HTML::image('img/user-icon.gif', Auth::user()->firstname) }}
+                                         {{ Auth::user()->firstname }} {{ HTML::image('/img/down-arrow.gif', Auth::user()->firstname) }} </a>
+                                        <ul>
+                                            <li><a href="#">Order History</a></li>
+                                            <li>{{ HTML::link('users/signout', 'Sign Out') }}</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                        </nav>
+                        @else
+                            <nav id="signin" class="dropdown">
+                                <ul>
+                                    <li>
+                                        <a href="#">{{ HTML::image('img/user-icon.gif', 'Sign In') }} Sign In {{ HTML::image('img/down-arrow.gif', 'Sign In') }} </a>
+                                        <ul>
+                                            <li>{{ HTML::link('users/signin', 'Sign In') }}</li>
+                                            <li>{{ HTML::link('users/newaccount', 'Sign Up') }}</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                        </nav>
+                        @endif
+                        
+                        
                     </div><!-- end user-menu -->
 
                     <div id="view-cart">
@@ -100,7 +104,7 @@
 
             <section id="main-content" class="clearfix">
                @if (Session::has('message'))
-               		<p class="alert"> {{ Session::get('message') }} </p>
+                    <p class="alert"> {{ Session::get('message') }} </p>
                @endif
 
                @yield('content')
@@ -121,8 +125,8 @@
                     <div id="my-account">
                         <h4>MY ACCOUNT</h4>
                         <ul>
-                            <li><a href="#">Sign In</a></li>
-                            <li><a href="#">Sign Up</a></li>
+                            <li>{{ HTML::link('users/signin', 'Sign In') }}</li>
+                            <li>{{ HTML::link('users/newaccount', 'Sign Up') }}</li>
                             <li><a href="#">Order History</a></li>
                             <li><a href="#">Shopping Cart</a></li>
                         </ul>
