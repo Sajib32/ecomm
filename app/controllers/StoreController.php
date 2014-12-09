@@ -5,6 +5,7 @@ class StoreController extends BaseController {
 	public function __construct() {
 		parent::__construct();
 		$this->beforeFilter('csrf', array('on' => 'post'));
+		$this->beforeFilter('auth', array('only'=>array('postAddtoCart', 'getCart', 'getRemoveitem')));
 	}
 
 	public function getIndex() {
@@ -30,4 +31,32 @@ class StoreController extends BaseController {
 			->with('keyword', $keyword);
 	}
 
+	public function postAddtocart() {
+		$product = Product::find(Input::get('id'));
+		$quantity = Input::get('quantity');
+
+		Cart::add(array(
+			'id'=>$product->id,
+			'name'=>$product->title,
+			'price'=>$product->price,
+			'qty'=>$quantity,
+			'image'=>$product->image
+		));
+
+		return Redirect::to('store/cart');
+	}
+
+	public function getCart() {
+		return View::make('store.cart')->with('products', Cart::content());
+	}
+
+	public function getRemove($rowid) {
+		$item = Cart::get($rowid);
+		$item = Cart::remove($rowid);
+		return Redirect::to('store/cart');
+	}
+
+	public function getContact() {
+		return View::make('store.contact');
+	}
 }

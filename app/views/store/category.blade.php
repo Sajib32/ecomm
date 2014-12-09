@@ -61,8 +61,8 @@
                 {{ Form::hidden('quantity', 1) }}
                 {{ Form::hidden('id', $product->id) }}
                 <button type="submit" class="cart-btn">
-                    <span class="price">{{ $product->price }}</span> 
-                    {{ HTML::image('img/white-cart.gif', 'Add to Cart') }} 
+                    <span class="price">{{ $product->price }}</span>
+                    {{ HTML::image('img/white-cart.gif', 'Add to Cart') }}
                     ADD TO CART
                 </button>
                 {{ Form::close() }}

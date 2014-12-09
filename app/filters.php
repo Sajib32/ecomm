@@ -43,7 +43,7 @@ Route::filter('auth', function()
 		}
 		else
 		{
-			return Redirect::guest('login');
+			return Redirect::guest('users/signin');
 		}
 	}
 });
@@ -69,6 +69,14 @@ Route::filter('guest', function()
 {
 	if (Auth::check()) return Redirect::to('/');
 });
+
+/* Admin Filter */
+
+Route::filter('guest', function()
+{
+	if (!Auth::user() || Auth::user()->admin != 1) return Redirect::to('/');
+});
+
 
 /*
 |--------------------------------------------------------------------------
